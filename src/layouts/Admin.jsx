@@ -23,7 +23,7 @@ import logo from "assets/img/reactlogo.png";
 import { Provider } from "react-redux";
 import store from "../store";
 import { Link } from 'react-router-dom';
-
+import NuevoProducto from "../views/Mongodb/NuevoProducto"
 const switchRoutes = (
   <Provider store={store}>
   <Switch>
@@ -39,6 +39,10 @@ const switchRoutes = (
         );
       }
     })}
+
+
+<Route path="/admin/productos/nuevo" component={NuevoProducto} />
+          
   </Switch>
   </Provider>
 );

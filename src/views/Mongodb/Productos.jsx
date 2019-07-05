@@ -17,7 +17,7 @@ class Productos extends Component {
           return <Producto key={index} producto={producto} />;
         })}
        <LinkButton
-  to='/productos/nuevo'
+  to='/admin/productos/nuevo'
   onClick={(event) => {
     console.log('Vamos a crear un nuevo producto!', event)
   }}

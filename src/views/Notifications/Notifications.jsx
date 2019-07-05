@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React, { Component } from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
@@ -13,6 +13,12 @@ import Snackbar from "components/Snackbar/Snackbar.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+
+
+import { connect } from "react-redux";
+import { mostrarProductos } from "../../actions/productosActions";
+import Producto from "../Mongodb/Producto";
+import LinkButton from '../Mongodb/LinkButton';
 
 const styles = {
   cardCategoryWhite: {
@@ -44,7 +50,8 @@ const styles = {
   }
 };
 
-class Notifications extends React.Component {
+class Notifications extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -62,7 +69,13 @@ class Notifications extends React.Component {
     while (id--) {
       window.clearTimeout(id);
     }
+    this.props.mostrarProductos();
   }
+/*
+  componentDidMount() {
+    this.props.mostrarProductos();
+  }  */
+
   showNotification(place) {
     var x = [];
     x[place] = true;
@@ -77,6 +90,7 @@ class Notifications extends React.Component {
   }
   render() {
     const { classes } = this.props;
+
     return (
       <Card>
         <CardHeader color="primary">
@@ -96,6 +110,20 @@ class Notifications extends React.Component {
             </a>
             .
           </p>
+
+          <div className="container">
+        <h1>Listado de productos</h1>
+       {productos.map((producto, index) => {
+          return <Producto key={index} producto={producto} />;
+        })}
+       <LinkButton
+  to='/admin/productos/nuevo'
+  onClick={(event) => {
+    console.log('Vamos a crear un nuevo producto!', event)
+  }}
+>Crear Nuevo Producto</LinkButton>
+      </div>
+      
         </CardHeader>
         <CardBody>
           <GridContainer>
@@ -297,4 +325,14 @@ class Notifications extends React.Component {
   }
 }
 
-export default withStyles(styles)(Notifications);
+const mapStateToProp = state => {
+  return {
+    productos: state.productos.productos
+  };
+};
+
+export default withStyles(styles,connect(
+  mapStateToProp,
+  { mostrarProductos }
+))(Notifications);
+

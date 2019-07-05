@@ -11,14 +11,14 @@ class Producto extends Component {
   
 
   eliminarCambios = () => {
-   
+    this.props.history.push("/admin/mongodb");
     //Guardar el producto
     console.log("eliminando el producto");
    
     console.log(this.state);
     this.setState({ id: this.props.producto._id });
     this.props.eliminarProducto(this.state);
-    this.props.history.push("/");
+   
    
     //this.props.history.push("/");
   };
